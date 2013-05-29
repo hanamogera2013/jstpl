@@ -1,0 +1,120 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<script language='javascript' src='script/jquery-1.8.2.min.js'></script>
+<script language='javascript' src='script/jstpl.js'></script>
+<script language='javascript' src='script/jstpl-conf.js'></script>
+<script language='javascript' src='script/jstpl-testdata.js'></script>
+<script language='javascript'>
+$(function() {
+	jstpl.init(jstplConfigValues);
+	$(document).tmplRender(function () {
+		// レンダリングが終わってから実行する処理
+
+		// サンプル 9
+		$('[name=BTN_ADD]').click(function () {
+			var sel_color = $('[name=COLOR]').val();
+			jstpl.objects.maru.clone().tmplRender({BALL_COLOR:sel_color}, function () {
+				$(this).appendTo('#add_here');
+			});
+		});
+	});
+	
+	
+});
+</script>
+<title>サンプル</title>
+</head>
+<body>
+<div>
+	<div>1.変数割り当て</div>
+	<div>私の名前は、<span data-tpl-assign='NAMAE'></span>です</div>
+</div>
+<br/>
+
+<div>
+	<div>2.変数割り当て(関数)</div>
+	<div>生まれた年は、<span data-tpl-assign='new Date(BIRTH_DAY).getFullYear()'></span>年です</div>
+</div>
+<br/>
+
+<div>
+	<div>3.変数割り当て(属性)</div>
+	<div>好きな色は、<font data-tpl-color='FAVORITE_COLOR'>■</font>です</div>
+</div>
+<br/>
+
+<div>
+	<div>4.ループ制御構造</div>
+	<div>
+		好きな言語は、<br/>
+		<span data-tpl-for='LIST_FAVORITE_LANGS,INDEX,LANG'>
+			<span data-tpl-assign='parseInt(INDEX) + 1'></span>.<span data-tpl-assign='LANG'></span><br/>
+		</span>
+		です
+	</div>
+</div>
+<br/>
+
+<div>
+	<div>5.分岐制御構造</div>
+	<div>
+		性別は、
+		<span data-tpl-if='IS_MALE'>男性</span>
+		<span data-tpl-else=''>女性</span>
+		です。
+	</div>
+</div>
+<br/>
+
+<div>
+	<div>6.多分岐制御構造</div>
+	<div>
+		私の国は、
+		<span data-tpl-switch='COUNTRY_CD'>
+			<span data-tpl-case='JP'>日本</span>
+			<span data-tpl-case='US'>アメリカ</span>
+			<span data-tpl-case='GB'>イギリス</span>
+			<span data-tpl-default=''>その他</span>
+		</span>
+		です。
+	</div>
+</div>
+<br/>
+
+<div>
+	<div>7.変数割り当て(フォーム部品自動設定)</div>
+	<div>私の名前は、<input type='text' name='NAMAE'/>です</div>
+</div>
+<br/>
+
+<div>
+	<div>8.変数割り当て(フォーム選択部品自動設定)</div>
+	<div>
+		私の出身は、
+		<select name='PREF_CD'>
+		<option>都道府県選択</option>
+		</select>
+		です。
+	</div>
+</div>
+<br/>
+
+<div>
+	<div>9.動的な制御。ボタンを押すと<select name='COLOR'></select>●がどんどん増えるよ<input type='button' name='BTN_ADD' value='ふえーる'/></div>
+	<div id='add_here'>
+		<span data-tpl-save-remove='maru'><font data-tpl-color='BALL_COLOR'>●</font></span>
+	</div>
+</div>
+<br/>
+
+<div>
+	<div>10.外部ファイルの読み込み</div>
+	<div>
+		<div data-tpl-include='parts.html'></div>
+	</div>
+</div>
+<br/>
+
+</body>
+</html>
